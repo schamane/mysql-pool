@@ -18,7 +18,7 @@ pool.getConnection(function(connection) { // Получаем свободное
     if (error) {
        pool.resume(connection); // При возникновении ошибки так же явно надо вернуть соединение в пул.
     } else {
-       pool.resume(connection); // Отдаем соединение обратно в пул  
+       pool.resume(connection); // Если на этом этапе работа с базой закончена то нужно явно вернуть соединение обратно в пул  
     }
     });
 });
