@@ -1,7 +1,7 @@
 mysql-pool
 ==========
 
-Простой и быстрый пул открытых соединений к MySQL для драйвера [felixge/node-mysql v2.0](https://github.com/felixge/node-mysql)
+Простой и эффективный пул открытых соединений к базе данных MySQL для драйвера [felixge/node-mysql v2.0](https://github.com/felixge/node-mysql)
 
 ##Пример работы с модулем##
 ```javascript
