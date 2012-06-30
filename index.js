@@ -30,15 +30,13 @@ module.exports = function (properties) {
             callback(connection); 
         } else { // Если свободных соединений в пуле нет, ставим в очередь
             mainQueue.push(callback);
-            console.log('set queue');
         };
     };
 
     this.resume = function(connection) {
         connectionPool.push(connection); // Возращаем использованное соединение в пул добавляя его в конец массива
         if (mainQueue.length) { // Если ли очередь?
-            process.nextTick(function () {
-                console.log('get queue'); 
+            process.nextTick(function (
                 self.getConnection(mainQueue.shift()); // Вызываем очередь
             });
         };
