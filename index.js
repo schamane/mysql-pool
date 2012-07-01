@@ -5,7 +5,7 @@ module.exports = function (properties) {
     var parameters = {};
     var connectionPool = [];
     var mainQueue = [];
-    /* Инициализация пула */
+
     (function () {
         for (var key in properties) {
             switch (key) {
@@ -25,19 +25,18 @@ module.exports = function (properties) {
     })();
 
     this.getConnection = function(callback) {
-        var connection = connectionPool.pop(); // Выбираем с конца массива соединение
-        if (connection) {
-            callback(connection); 
-        } else { // Если свободных соединений в пуле нет, ставим в очередь
+        if (connectionPool.length) {
+            callback(connectionPool.pop());
+        } else { 
             mainQueue.push(callback);
         };
     };
 
     this.resume = function(connection) {
-        connectionPool.push(connection); // Возращаем использованное соединение в пул добавляя его в конец массива
-        if (mainQueue.length) { // Если ли очередь?
+        connectionPool.push(connection);
+        if (mainQueue.length) {
             process.nextTick(function (
-                self.getConnection(mainQueue.shift()); // Вызываем очередь
+                self.getConnection(mainQueue.shift());
             });
         };
     };
