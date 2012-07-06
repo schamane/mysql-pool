@@ -15,7 +15,6 @@ module.exports = function (properties) {
                 };
                 default : {
                     parameters[key] = properties[key];
-                    break;
                 };
             };
         };
