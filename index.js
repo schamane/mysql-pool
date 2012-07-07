@@ -1,5 +1,4 @@
 module.exports = function (properties) {
-    var self = this;
     var mysql = require('mysql');
     var poolSize = 1;
     var parameters = {};
@@ -35,8 +34,8 @@ module.exports = function (properties) {
         connectionPool.push(connection);
         if (mainQueue.length) {
             process.nextTick(function (
-                self.getConnection(mainQueue.shift());
-            });
+                this.getConnection(mainQueue.shift());
+            }.bind(this));
         };
     };
 };
