@@ -15,11 +15,12 @@ var pool = new MySQLPool({
 
 pool.getConnection(function(connection) { // Получаем свободное соединение из пула
   connection.query('SELECT...', function (error, result) {
+    pool.resume(connection); // По завершению работы запроса к базе обязательно надо вернуть соединение обратно в пул
     if (error) {
-       pool.resume(connection); // При возникновении ошибки так же явно надо вернуть соединение в пул.
-    } else {
-       pool.resume(connection); // Если на этом этапе работа с базой закончена то нужно явно вернуть соединение обратно в пул  
+       console.log(error); // При возникновении ошибки так же явно надо вернуть соединение в пул.
+       return;
     }
+    console.log(result); // работаем с результатом
     });
 });
 ```
