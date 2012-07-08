@@ -1,18 +1,20 @@
 module.exports = function (properties) {
     var mysql = require('mysql');
-    var connectionPool = [];
+    var connectionPool = initPool(properties);
     var mainQueue = [];
    
-    (function () {
+    var _initPool = function (properties) {
+       var pool = [];
        var poolSize = properties.poolSize || 1;
        delete properties.poolSize;
        for (var x = 0; x < poolSize; x += 1) {
-           connectionPool.push({ 
+           pool.push({ 
                connection : mysql.createConnection(properties),
                cid : x // id соединения для дебага
            });
        };
-    })();
+       return pool;
+    };
 
     var resumeConnection = function(connection) { /* Функция возращает соединение в пул и активирует очередь */
         delete connection.query; /* Удаляем метод обертку у использованного соединения */
