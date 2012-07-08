@@ -37,7 +37,7 @@ module.exports = function (properties) {
                 this.connection.query(sql, params || [], function() { 
                     if (arguments[0] !== null) 
                         resumeConnection(this);
-                    if (this.connection._protocol._queue.length == 1) 
+                    if (this.connection._protocol._queue.length == 1) // Проверяем внутреннию очередь для текущего соединения
                         resumeConnection(this);   
                     if (callback) 
                         callback.apply(this.connection, arguments); 
