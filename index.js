@@ -16,6 +16,7 @@ module.exports = function (properties) {
 
     var resumeConnection = function(connection) { /* Функция возращает соединение в пул и активирует очередь */
         delete connection.query; /* Удаляем метод обертку у использованного соединения */
+        connection.query = connection._originalQuery; /* Возвращаем оригинальный метод */
         connectionPool.push(connection); /* Соединение вернулось в пул и готова к исполнению новых запросов */
         if (mainQueue.length) { 
             process.nextTick(function () {
@@ -27,12 +28,13 @@ module.exports = function (properties) {
     this.getConnection = function(callback) {
         if (connectionPool.length) { /* Проверяем пул на наличее свободных соединений */
             var connection = connectionPool.pop(); /* Берем соединение с конца (потомучто так быстрее) */
+            connection._originalQuery = connection.query;
             connection.query = function (sql, params, callback) { /* Метод обертка для вызова оригинального метода query */
                 if (typeof params == "function") {
                     callback = params;
                     params = undefined;
                 };
-                connection.query(sql, params || [], function() { /* Обертка оригинальноо колбэка, ядро пула */ 
+                connection._originalQuery(sql, params || [], function() { /* Обертка оригинальноо колбэка, ядро пула */ 
                     if (arguments[0] !== null || connection._protocol._queue.length == 1) { /* Проверяем внутреннию очередь для текущего соединения */
                         resumeConnection(connection);
                     }
