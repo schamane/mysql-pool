@@ -28,7 +28,7 @@ pool.getConnection(function(connection) {
 ```javascript
 var MySQLPool = require("./mysql-pool");
 var pool = new MySQLPool({
-    poolSize : 3,
+    poolSize : 5,
     user : 'exchanger',
     password : '12345',
     database : 'test'
