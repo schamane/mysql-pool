@@ -1,8 +1,9 @@
 mysql-pool
 ==========
 
-Простой и эффективный пул открытых соединений к базе данных MySQL для драйвера [felixge/node-mysql v2.0](https://github.com/felixge/node-mysql)
-
+Простой и 1эффективный пул открытых соединений к базе данных MySQL для драйвера [felixge/node-mysql v2.0](https://github.com/felixge/node-mysql)
+##Текущая версия##
+1.1.0
 ##Пример работы с модулем##
 ```javascript
 var MySQLPool = require('mysql-pool');
