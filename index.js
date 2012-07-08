@@ -29,7 +29,7 @@ module.exports = function (properties) {
         var connection;
         if (connectionPool.length) { 
             connection = connectionPool.pop(); 
-            connection.query = function (sql, params, callback) { 
+            connection.query = function (sql, params, callback) { // метод обертка для вызова оригинального метода query
                 if (typeof params == "function") {
                     callback = params;
                     params = undefined;
@@ -43,7 +43,7 @@ module.exports = function (properties) {
                         callback.apply(this.connection, arguments); 
                 }.bind(this));
             };
-            callback(connection);
+            callback(connection); // Передаем полученное соединение в функцию исполнения запросов
         } else {
             mainQueue.push(callback);
         };
