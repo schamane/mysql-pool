@@ -18,7 +18,7 @@ pool.getConnection(function(connection) {
         console.log('request #1 ------- Query 1\n\r');
         connection.query('SELECT 1', function (error, result) {
             if (error) {
-                onsole.log(error);
+                console.log(error);
                 return;
             }; 
             console.log('connection id #',connection.cid);
@@ -35,7 +35,7 @@ pool.getConnection(function(connection) {
         console.log('request #1 ------- Query 2\n\r');
         connection.query('SELECT 1', function (error, result) {
             if (error) {
-                onsole.log(error);
+                console.log(error);
                 return;
             }; 
             console.log('connection id #',connection.cid);
@@ -52,7 +52,7 @@ pool.getConnection(function(connection) {
         console.log('request #1 ------- Query 3\n\r');
         connection.query('SELECT 1', function (error, result) {
             if (error) {
-                onsole.log(error);
+                console.log(error);
                 return;
             }; 
             console.log('connection id #',connection.cid);
@@ -69,7 +69,7 @@ pool.getConnection(function(connection) {
         console.log('request #1 ------- Query 4\n\r');
         connection.query('SELECT 1', function (error, result) {
             if (error) {
-                onsole.log(error);
+                console.log(error);
                 return;
             }; 
             console.log('connection id #',connection.cid);
