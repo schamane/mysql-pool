@@ -1,9 +1,9 @@
-var MySQLPool = require("./db-pool");
+var MySQLPool = require("./mysql-pool");
 var pool = new MySQLPool({
-    poolSize : 3,
-    user : 'root',
+    poolSize : 5,
+    user : 'exchanger',
     password : '12345',
-    database : 'futs'
+    database : 'test'
 });
 
 pool.getConnection(function(connection) {
