@@ -32,14 +32,13 @@ module.exports = function (properties) {
                     callback = params;
                     params = undefined;
                 };
-                this.connection.query(sql, params || [], function() { /* Обертка оригинальноо колбэка, ядро пула */ 
-                    if (arguments[0] !== null) 
-                        resumeConnection(this);
-                    if (this.connection._protocol._queue.length == 1) /* Проверяем внутреннию очередь для текущего соединения */
-                        resumeConnection(this);   
+                connection.query(sql, params || [], function() { /* Обертка оригинальноо колбэка, ядро пула */ 
+                    if (arguments[0] !== null || connection._protocol._queue.length == 1) { /* Проверяем внутреннию очередь для текущего соединения */
+                        resumeConnection(connection);
+                    }
                     if (callback) 
-                        callback.apply(this.connection, arguments); 
-                }.bind(this));
+                        callback.apply(connection, arguments); 
+                });
             };
             callback(connection); /* Передаем полученное соединение в функцию исполнения запросов */
         } else {
