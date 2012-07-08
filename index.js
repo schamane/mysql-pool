@@ -1,11 +1,10 @@
 module.exports = function (properties) {
-    var self = this;
     var mysql = require('mysql');
     var connectionPool = [];
     var mainQueue = [];
    
     (function () {
-       var poolSize = properties.poolSize;
+       var poolSize = properties.poolSize || 1;
        delete properties.poolSize;
        for (var x = 0; x < poolSize; x += 1) {
            connectionPool.push({ 
@@ -20,8 +19,8 @@ module.exports = function (properties) {
         connectionPool.push(connection); /* Соединение вернулось в пул и готова к исполнению новых запросов */
         if (mainQueue.length) { 
             process.nextTick(function () {
-                self.getConnection(mainQueue.shift());
-            });
+                this.getConnection(mainQueue.shift());
+            }.bind(this));
         };
     };
 
