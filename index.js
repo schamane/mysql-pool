@@ -10,7 +10,7 @@ module.exports = function (properties) {
        for (var x = 0; x < poolSize; x += 1) {
            connectionPool.push({ 
                connection : mysql.createConnection(properties),
-               cid : x
+               cid : x // id соединения для дебага
            });
        };
     })();
